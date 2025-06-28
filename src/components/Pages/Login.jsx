@@ -1,11 +1,16 @@
 import GoogleLoginButton from "../GoogleLoginButton";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import { useSocket } from "../../context/SocketProvider";
 import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "../../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
+  const location  = useLocation();
   const socket   = useSocket();
+  const { login: saveAuth, isAuth } = useAuth();
+  /* Already logged in?  Skip this page entirely */
+  if (isAuth) return <Navigate to="/match" replace />;
   
   const handleGoogleCred = async (googleToken) => {
     const res = await fetch("http://localhost:5000/api/google-login", {
@@ -19,15 +24,18 @@ function Login() {
     }
 
     const { token, user } = await res.json();
-    localStorage.setItem("authToken", token);
+    sessionStorage.setItem("authToken", token);
     //  authenticate this socket with the *new* token, then connect
     socket.auth = { token };
     socket.connect();
-    localStorage.setItem("user", JSON.stringify(user));
+    sessionStorage.setItem("user", JSON.stringify(user));
+    /* NEW — store in AuthContext for this tab’s lifetime */
+    saveAuth(token, user);
     // store token in context / localStorage; redirect, etc.
     alert(`Welcome ${user.name}! Login successful.`);
     console.log("Signed-in user:", user);
-    navigate("/match");
+    const redirect = location.state?.from?.pathname || "/match";
+    navigate(redirect, { replace: true });
 
     
   };

@@ -28,7 +28,7 @@ function Navbar() {
                 <li>
                   <a
                     className="text-gray-700 transition hover:text-gray-900 dark:text-white dark:hover:text-white/75"
-                    href="/try"
+                    href="/policy"
                   >
                     Policy
                   </a>
@@ -36,7 +36,7 @@ function Navbar() {
                 <li>
                   <a
                     className="text-gray-700 transition hover:text-gray-900 dark:text-white dark:hover:text-white/75"
-                    href="/reachus"
+                    href="/about"
                   >
                     About us
                   </a>

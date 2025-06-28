@@ -1,33 +1,37 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
-import { FaUserAlt, FaVenusMars, FaSmile, FaSpinner } from "react-icons/fa";
+import { FaUserAlt, FaVenusMars, FaSmile, FaSpinner, FaMars,  FaVenus } from "react-icons/fa";
+import { useMatch } from "../context/MatchContext";
 
 const MatchScreen = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
   const [isWaiting, setIsWaiting] = useState(false);
   const [error, setError] = useState("");
-
-
+  
+  const { info, setInfo } = useMatch();
+  const [age, setAge]    = useState(info?.age || "");
+  const [gender, setGender] = useState(info?.gender || "");
+  const [pref,   setPref]   = useState(info?.pref || "");
+  
   const socket = useSocket();
   const nav = useNavigate();
 
   // Ask server to enqueue me
   const handleCallRequest = useCallback(() => {
-    if (!age || !gender) {
-      setError("Please enter both age and gender.");
+    if (!age || !gender || !pref) {
+      setError("Please enter all age, gender and interest.");
       return;
     }
     setError("");
-    socket.emit("queue:join", { email, name, age, gender });
+    setInfo({ age, gender, pref });                  // 💾 remember form
+    socket.emit("queue:join", { email, name, age, gender, pref });
     setIsWaiting(true);
     
     
       
-  }, [email, name, age, gender, socket]);
+  }, [email, name, age, gender, pref, socket]);
 
   // Server paired me with a stranger
   useEffect(() => {
@@ -79,6 +83,58 @@ const MatchScreen = () => {
             <option value="female">Female</option>
             <option value="other">Other / Prefer not to say</option>
       </select>
+      {/* Preferred match */}
+     <label className="mb-2 block text-sm font-medium text-gray-200">
+      Preferred match
+     </label>
+
+    <div className="mb-6 flex gap-3">
+    {/* Male button */}
+    <button
+    type="button"
+    onClick={() => setPref("male")}
+    className={`flex flex-1 items-center justify-center gap-1 rounded-md border
+                px-3 py-2 text-sm
+                ${pref === "male"
+                  ? "border-teal-400 bg-teal-500 text-white"
+                  : "border-gray-600 bg-gray-900/60 text-gray-300 hover:bg-gray-800"}
+               `}
+  >
+    <FaMars className="text-lg" />
+    Male
+    </button>
+
+    {/* Female button */}
+    <button
+    type="button"
+    onClick={() => setPref("female")}
+    className={`flex flex-1 items-center justify-center gap-1 rounded-md border
+                px-3 py-2 text-sm
+                ${pref === "female"
+                  ? "border-teal-400 bg-teal-500 text-white"
+                  : "border-gray-600 bg-gray-900/60 text-gray-300 hover:bg-gray-800"}
+               `}
+  >
+     <FaVenus className="text-lg" />
+     Female
+     </button>
+
+      {/* Both button */}
+     <button
+      type="button"
+      onClick={() => setPref("both")}
+      className={`flex flex-1 items-center justify-center gap-1 rounded-md border
+                px-3 py-2 text-sm
+                ${pref === "both"
+                  ? "border-teal-400 bg-teal-500 text-white"
+                  : "border-gray-600 bg-gray-900/60 text-gray-300 hover:bg-gray-800"}
+               `}
+  >
+      <FaVenusMars className="text-lg" />
+      Both
+     </button>
+     </div>
+
        {error && (
             <p className="mb-4 text-sm text-red-400">
               {error}
@@ -109,14 +165,6 @@ const MatchScreen = () => {
             Your age &amp; gender are <span className="text-teal-300">never</span> shown to strangers.
           </p>
 
-      {/* WAITING MESSAGE */}
-      {/* {isWaiting && (
-        <div style={{ marginTop: "3rem" }}>
-          <h2>⏳ Waiting for another user to join…</h2>
-          <p>Leave this tab open. We'll connect you as soon as someone arrives!</p>
-        </div>
-      )} */}
-
       {isWaiting && (
   <div className="flex flex-col items-center justify-center space-y-4 py-8">
     <FaSpinner className="text-5xl text-teal-400 animate-spin" />
@@ -125,7 +173,6 @@ const MatchScreen = () => {
       Finding the best match for you…
     </p>
 
-    {/* Optional cancel button */}
     <button
       onClick={() => {
         socket.emit("queue:leave");

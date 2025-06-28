@@ -1,8 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth }    from "../../context/AuthContext";
 
 function Home() {
-     const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { isAuth } = useAuth();
   return (
      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#0B1120] to-black">
       <div
@@ -32,7 +34,7 @@ function Home() {
             className="w-40 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3
                        font-semibold text-white transition-transform hover:scale-105
                        focus:outline-none focus:ring-4 focus:ring-teal-400"
-            onClick={() => navigate('/login')}  // Redirect to your match route
+            onClick={() => navigate(isAuth ? "/match" : "/login")}
           >
             Video Chat
           </button>

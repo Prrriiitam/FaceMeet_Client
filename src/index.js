@@ -4,6 +4,8 @@ import App from "./App";
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { SocketProvider } from './context/SocketProvider';
+import { AuthProvider }   from './context/AuthContext';
+import { MatchProvider }  from './context/MatchContext';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 
@@ -12,9 +14,13 @@ root.render(
   
   <BrowserRouter>
   <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-  <SocketProvider>
-    <App />
-  </SocketProvider>
+<AuthProvider>
+      <MatchProvider>
+        <SocketProvider>
+            <App />
+        </SocketProvider>
+      </MatchProvider>
+</AuthProvider>
   </GoogleOAuthProvider>
     </BrowserRouter>
 );

@@ -4,6 +4,7 @@ import { useSocket } from "../context/SocketProvider";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { FaFlag } from "react-icons/fa"; 
 
 const RoomPage = () => {
   const { roomid } = useParams(); // Get roomid from URL
@@ -21,6 +22,7 @@ const RoomPage = () => {
   const [initiator]      = useState(state?.initiator);
   const hasDialledRef    = useRef(false); 
   const pendingCandidatesRef = useRef([]);   // 🆕 store early ICE
+  const [showReportMsg, setShowReportMsg] = useState(false);
 
 
   const [myStream, setMyStream] = useState();
@@ -29,7 +31,7 @@ const RoomPage = () => {
 
   const handleEndCall = () => {
     socket.emit("call:end", { to: remoteSocketId, roomId: roomid });
-    navigate("/");                            // back to lobby
+    navigate("/match");                            // back to lobby
   };
 
 
@@ -130,7 +132,7 @@ const RoomPage = () => {
   useEffect(() => {
     socket.on("call:ended", () => {
       alert("Stranger disconnected");
-      navigate("/");
+      navigate("/match");
     });
     return () => socket.off("call:ended");
   }, [socket, navigate]);
@@ -172,54 +174,14 @@ const RoomPage = () => {
     handleCallAccepted,
   ]);
 
-  // return (
-  //   <div>
-  //     <h1>Room Page</h1>
-  //     <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-  //     {remoteSocketId && remoteEmail && remoteName && remoteAge && remoteGender && (
-  //       <>
-  //         <h4>{remoteName} Has Joined with {remoteEmail} Age {remoteAge} and Gender {remoteGender}</h4>
-  //       </>
-  //     )}
-  //     {/* Show “Join video” only if I haven’t opened camera yet */}
-  //     {remoteSocketId && !myStream && (
-  //       <button onClick={handleCallUser}>Join video</button>
-  //     )}
-  //     {/* Show “End Call” only after camera is running */}
-  //     {remoteSocketId && myStream && (
-  //     <button onClick={handleEndCall}>End Call</button>
-  //     )}
-
-  //     {myStream && (
-  //     <>
-  //     <h1>Your Stream</h1>
-  //     <video
-  //     style={{ width: 500 }}
-  //     playsInline
-  //     muted
-  //     autoPlay
-  //     ref={(v) => v && (v.srcObject = myStream)}
-  //     />
-  //   </>
-  //   )}
-  //   {remoteStream && (
-  //   <>
-  //   <h1>{remoteName} Stream</h1>
-  //   <video
-  //     style={{ width: 500 }}
-  //     playsInline
-  //     autoPlay
-  //     ref={(v) => v && (v.srcObject = remoteStream)}
-  //   />
-  //   </>
-  //   )}
-
-
-  //   </div>
-  // );
-
-  /* ⬇️  put this inside the `return ( … )` of RoomPage  */
 return (
+  <>
+      {showReportMsg && (
+  <div className="fixed bottom-40 right-4 z-50 rounded-md bg-black/80 px-4 py-2 text-sm text-white shadow-lg animate-fade-in-out">
+    ✅ User reported. Thank you!
+  </div>
+)}
+  
   <div className="min-h-screen bg-gradient-to-b from-[#0B1120] to-black px-4 py-6 flex flex-col items-center">
     {/* ── Status bar ─────────────────────────── */}
     {remoteSocketId ? (
@@ -281,6 +243,19 @@ return (
           <span className="absolute bottom-2 left-2 rounded bg-black/50 px-2 py-0.5 text-xs text-gray-100">
             {remoteName || "Stranger"}
           </span>
+          {/* ── Report button ────────────────────────── */}
+          {!showReportMsg && <button
+            onClick={() => {setShowReportMsg(true); setTimeout(() => setShowReportMsg(false), 3000);}}
+            className="absolute top-2 right-2 flex items-center gap-1 rounded-full
+                       bg-gradient-to-r from-red-500 to-pink-600 px-3 py-1
+                       text-xs font-semibold text-white shadow-lg
+                       transition-transform hover:scale-105 focus:outline-none
+                       focus:ring-2 focus:ring-red-400"
+          >
+          <FaFlag className="text-sm" />
+            Report
+          </button>}
+
         </div>
       ) : (
         remoteSocketId && (
@@ -291,6 +266,7 @@ return (
       )}
     </div>
   </div>
+  </>
 );
 
 };

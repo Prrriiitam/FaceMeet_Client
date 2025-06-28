@@ -10,6 +10,9 @@ import MatchScreen from "./screens/Match";
 import Room from "./screens/Room";
 import Login from "./components/Pages/Login";
 import Footer from "./components/Footer";
+import Community from "./components/Pages/Community";
+
+import RequireAuth from "./components/RequireAuth";
 
 const  App= () => {
   return (
@@ -21,8 +24,16 @@ const  App= () => {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/policy" element={<Policy />} />
-        <Route path="/match" element={<MatchScreen />} />
-        <Route path="/room/:roomid" element={<Room />} />
+        <Route path="/community" element={<Community />} />
+
+        <Route
+          path="/match" element={<RequireAuth>
+          <MatchScreen />
+          </RequireAuth> } />
+          
+          <Route path="/room/:roomid" element={<RequireAuth>
+          <Room /> 
+          </RequireAuth> }/>
       </Routes>
       </main>
       <Footer />
