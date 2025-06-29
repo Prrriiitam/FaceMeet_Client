@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
 
         {/* Col 3 */}
-        <div className="space-y-4 text-center sm:text-left">
+        <div className="space-y-4 text-center sm:text-left md:pl-20">
           <p className="font-semibold">Connect with the team</p>
           <p>Pritam Kumar Sarangi</p>
           <div className="flex justify-center sm:justify-start gap-4 text-xl">
