@@ -5,6 +5,8 @@ import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../context/AuthContext";
 
 function Login() {
+  const BACKEND_ORIGIN = process.env.SERVER_URL || "http://localhost:5000";
+
   const navigate = useNavigate();
   const location  = useLocation();
   const socket   = useSocket();
@@ -13,7 +15,7 @@ function Login() {
   if (isAuth) return <Navigate to="/match" replace />;
   
   const handleGoogleCred = async (googleToken) => {
-    const res = await fetch("http://localhost:5000/api/google-login", {
+    const res = await fetch(`${BACKEND_ORIGIN}/api/google-login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ credential: googleToken }),

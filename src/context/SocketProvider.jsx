@@ -44,8 +44,11 @@ const StatsContext = createContext(null);
 const SocketContext = createContext(null);
 export const useStats = () => useContext(StatsContext);
 
+const BACKEND_ORIGIN = process.env.SERVER_URL || "http://localhost:5000";
+
+
 // After successful login
-const socket = io('http://localhost:5000', {
+const socket = io(BACKEND_ORIGIN, {
   withCredentials: true,
   autoConnect: false,
   auth: { token: sessionStorage.getItem("authToken") || "" },
@@ -70,7 +73,7 @@ export const SocketProvider = (props) => {
   const pollRef = useRef(null);                 // ← store interval id very few seconds only while the user is not authenticated.
 
   useEffect(() => {
-   fetch("http://localhost:5000/api/live-users")
+   fetch(`${BACKEND_ORIGIN}/api/live-users`)
      .then((r) => r.json())
      .then((data) => setLiveUsers(data.count))
      .catch(() => {});          // ignore network errors silent
@@ -97,7 +100,7 @@ export const SocketProvider = (props) => {
       // 👉 Not logged‑in: start/continue polling every 5 s bcoz we want unauthenticated users to show live users
       if (!pollRef.current) {
         const fetchCount = () =>
-          fetch("http://localhost:5000/api/live-users")
+          fetch(`${BACKEND_ORIGIN}/api/live-users`)
             .then((r) => r.json())
             .then((d) => setLiveUsers(d.count))
             .catch(() => {});
