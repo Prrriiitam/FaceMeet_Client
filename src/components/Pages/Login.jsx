@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../context/AuthContext";
 
 function Login() {
-  const BACKEND_ORIGIN = process.env.SERVER_URL || "http://localhost:5000";
+  const BACKEND_ORIGIN = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const navigate = useNavigate();
   const location  = useLocation();
