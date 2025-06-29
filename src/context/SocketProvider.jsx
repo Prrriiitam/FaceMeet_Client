@@ -44,7 +44,7 @@ const StatsContext = createContext(null);
 const SocketContext = createContext(null);
 export const useStats = () => useContext(StatsContext);
 
-const BACKEND_ORIGIN = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const BACKEND_ORIGIN = process.env.REACT_APP_API_URL;
 
 
 // After successful login
