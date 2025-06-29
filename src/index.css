@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.nav-link {
+  @apply block text-gray-700 dark:text-white transition hover:text-gray-900 dark:hover:text-white/75;
+}
+
 @keyframes fade-in-out {
   0%   { opacity: 0; transform: translateY(-10px); }
   10%  { opacity: 1; transform: translateY(0); }
