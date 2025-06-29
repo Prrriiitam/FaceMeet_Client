@@ -8,15 +8,15 @@ export default function Footer() {
         {/* Column 1 */}
         <div className="space-y-2 text-center md:text-left">
           <a href="/" className="hover:underline cursor-pointer block">Home</a>
-          <a href="/" className="hover:underline cursor-pointer block">Source Code</a>
+          <a href="https://github.com/Prrriiitam/FaceMeet_Server" target='_blank' className="hover:underline cursor-pointer block">Source Code</a>
         </div>
 
         {/* Column 2 */}
         <div className="space-y-2 text-center">
-          <a href="https://www.irjmets.com/uploadedfiles/paper//issue_3_march_2024/51553/final/fin_irjmets1713167203.pdf " target="_blank" rel="noopener noreferrer" className="hover:underline cursor-pointer block">
+          <a href="/community" rel="noopener noreferrer" className="hover:underline cursor-pointer block">
             View Community
           </a>
-          <a href="https://github.com/Prrriiitam/MonkeyPox_Prediction_CNN" target="_blank" rel="noopener noreferrer" className="hover:underline cursor-pointer block">
+          <a href="/policy" rel="noopener noreferrer" className="hover:underline cursor-pointer block">
            View Our Policy
          </a>
     </div>

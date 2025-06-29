@@ -35,10 +35,10 @@ const About = () => {
 
             {/* social icons */}
             <div className="mt-4 flex justify-center gap-6 md:justify-start">
-              <a href="https://github.com/pritam" target="_blank" rel="noreferrer">
+              <a href="https://github.com/prrriiitam" target="_blank" rel="noreferrer">
                 <FaGithub className="h-6 w-6 hover:text-teal-400" />
               </a>
-              <a href="https://linkedin.com/in/pritam" target="_blank" rel="noreferrer">
+              <a href="https://www.linkedin.com/in/pritam-kumar-sarangi-7b952a232/" target="_blank" rel="noreferrer">
                 <FaLinkedin className="h-6 w-6 hover:text-teal-400" />
               </a>
               <a href="mailto:pritam@example.com">

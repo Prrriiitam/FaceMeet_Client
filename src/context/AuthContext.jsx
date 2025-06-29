@@ -9,11 +9,19 @@ export const AuthProvider = ({ children }) => {
   // Read existing JWT once on page load
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
-    if (token) setUser({ token });
+    const storedUser  = sessionStorage.getItem("user"); 
+    if (token && storedUser) {
+      try {
+        setUser({ ...JSON.parse(storedUser), token });
+      } catch {
+        setUser({ token });
+      }
+    }
   }, []);
 
   const login  = (jwt, userObj) => {
     sessionStorage.setItem("authToken", jwt);
+    sessionStorage.setItem("user", JSON.stringify(userObj)); // NEW
     setUser({ ...userObj, token: jwt });
   };
   const logout = () => {

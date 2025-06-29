@@ -28,8 +28,6 @@ function Login() {
     //  authenticate this socket with the *new* token, then connect
     socket.auth = { token };
     socket.connect();
-    sessionStorage.setItem("user", JSON.stringify(user));
-    /* NEW — store in AuthContext for this tab’s lifetime */
     saveAuth(token, user);
     // store token in context / localStorage; redirect, etc.
     alert(`Welcome ${user.name}! Login successful.`);

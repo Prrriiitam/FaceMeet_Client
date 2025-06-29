@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
 import { FaUserAlt, FaVenusMars, FaSmile, FaSpinner, FaMars,  FaVenus } from "react-icons/fa";
 import { useMatch } from "../context/MatchContext";
+import { useStats } from "../context/SocketProvider";
 
 const MatchScreen = () => {
+  const { liveUsers} = useStats();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [isWaiting, setIsWaiting] = useState(false);
@@ -162,7 +164,7 @@ const MatchScreen = () => {
           </div>
 
           <p className="mt-6 text-center text-xs text-gray-500">
-            Your age &amp; gender are <span className="text-teal-300">never</span> shown to strangers.
+          <span className="text-teal-300">{liveUsers}</span> number of live users are waiting you will be shortly paired.
           </p>
 
       {isWaiting && (

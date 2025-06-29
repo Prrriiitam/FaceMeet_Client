@@ -38,9 +38,11 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { io } from "socket.io-client";
 import { useAuth } from "./AuthContext";    
+import { useState, useRef } from "react";
 
+const StatsContext = createContext(null);
 const SocketContext = createContext(null);
-
+export const useStats = () => useContext(StatsContext);
 
 // After successful login
 const socket = io('http://localhost:5000', {
@@ -63,17 +65,48 @@ socket.on('connect_error', (err) => {
 export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider = (props) => {
+  const [liveUsers, setLiveUsers] = useState(0);
   const { user, logout } = useAuth();     // 👉 get current token
-// (Re)connect whenever the token changes
+  const pollRef = useRef(null);                 // ← store interval id very few seconds only while the user is not authenticated.
+
+  useEffect(() => {
+   fetch("http://localhost:5000/api/live-users")
+     .then((r) => r.json())
+     .then((data) => setLiveUsers(data.count))
+     .catch(() => {});          // ignore network errors silent
+  }, []);                        // run once when page loads
+
+  useEffect(() => {
+  socket.on("stats:usercount", setLiveUsers);
+  return () => socket.off("stats:usercount", setLiveUsers);
+  }, []);
+  // (Re)connect whenever the token changes
+
   useEffect(() => {
     if (user?.token) {
       socket.auth = { token: user.token };
       if (!socket.connected) socket.connect();
+      // 👉 Logged‑in: stop polling
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
     } else {
       // no token → ensure socket is closed
       if (socket.connected) socket.disconnect();
+      // 👉 Not logged‑in: start/continue polling every 5 s bcoz we want unauthenticated users to show live users
+      if (!pollRef.current) {
+        const fetchCount = () =>
+          fetch("http://localhost:5000/api/live-users")
+            .then((r) => r.json())
+            .then((d) => setLiveUsers(d.count))
+            .catch(() => {});
+        pollRef.current = setInterval(fetchCount, 5000);
+      }
+
     }
   }, [user]);
+
 
   // If the token is rejected, wipe it so guards send user to /login
   useEffect(() => {
@@ -88,7 +121,9 @@ export const SocketProvider = (props) => {
 
   return ( 
     <SocketContext.Provider value={socket}>
+    <StatsContext.Provider value={{ liveUsers }}>
       {props.children}
+    </StatsContext.Provider>
     </SocketContext.Provider>
   );
  };

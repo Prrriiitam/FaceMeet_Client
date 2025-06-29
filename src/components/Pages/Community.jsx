@@ -15,7 +15,7 @@ const Community = () => {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
             <a
-              href="https://discord.com/invite/facemeet"
+              href="https://discord.gg/88ymFTpA8z"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md bg-teal-600 px-5 py-2 font-semibold text-white shadow hover:bg-teal-500"
@@ -23,7 +23,7 @@ const Community = () => {
               <FaDiscord /> Join Our Discord
             </a>
             <a
-              href="https://github.com/your-repo"
+              href="https://github.com/Prrriiitam/FaceMeet_Server"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md border border-teal-400 px-5 py-2 font-semibold text-teal-300 hover:bg-teal-900/40"
