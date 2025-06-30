@@ -280,6 +280,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { FaFlag } from "react-icons/fa";
+import ChatPanel from "./ChatPanel";
 
 const RoomPage = () => {
   const { roomid } = useParams();
@@ -448,6 +449,7 @@ const RoomPage = () => {
       }
     });
 
+
     return () => {
       socket.off("incomming:call", handleIncommingCall);
       socket.off("call:accepted", handleCallAccepted);
@@ -489,6 +491,7 @@ const RoomPage = () => {
 
         {/* Video grid - Desktop layout */}
         {!isMobile && (
+          <>
           <div className="grid w-full max-w-6xl gap-6 md:grid-cols-2">
             {/* Local video */}
             {myStream ? (
@@ -550,10 +553,17 @@ const RoomPage = () => {
               )
             )}
           </div>
+          <ChatPanel
+           roomId={roomid} remoteName={remoteName} />
+          </>
+          
+
         )}
+        
 
         {/* Mobile layout */}
         {isMobile && (
+          <>
           <div className="relative w-full h-full flex-1">
             {/* Remote video (full screen) */}
             {remoteStream ? (
@@ -620,6 +630,9 @@ const RoomPage = () => {
               </button>
             )}
           </div>
+          <ChatPanel
+           roomId={roomid} remoteName={remoteName} />
+          </>
         )}
       </div>
     </>

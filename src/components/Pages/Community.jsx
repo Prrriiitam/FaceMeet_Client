@@ -50,7 +50,7 @@ const Community = () => {
             <div>
               <h3 className="text-lg font-semibold text-teal-300">Can I report someone?</h3>
               <p className="text-gray-300">
-                Yes. Use the “Report” button during a call to flag abuse or misconduct This will be shortly available.
+                Yes. Use the “Report” button during a call or message to flag abuse or misconduct. Our powerful <span className="text-teal-300">Xenova AI</span> will detect if abused then reduce respective user's <span className="text-teal-300">Honor Score</span>.
               </p>
             </div>
           </div>

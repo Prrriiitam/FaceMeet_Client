@@ -2,8 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes mic-beat {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.25); }
+}
+
 .nav-link {
   @apply block text-gray-700 dark:text-white transition hover:text-gray-900 dark:hover:text-white/75;
+}
+/* For reply preview in messages */
+.reply-preview {
+  border-left: 3px solid #4fd1c5;
+  padding-left: 8px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* For the reply banner above input */
+.reply-banner {
+  background: #2d3748;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 8px;
 }
 
 @keyframes fade-in-out {
