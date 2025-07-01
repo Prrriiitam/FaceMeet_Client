@@ -64,8 +64,9 @@ const Community = () => {
           <ul className="list-disc space-y-2 pl-6 text-gray-300">
             <li>Be respectful. No hate speech or harassment.</li>
             <li>Don’t share your personal contact info in chat.</li>
-            <li>No nudity, illegal activity, or explicit content.</li>
+            <li>No nudity, illegal activity, sexual or explicit content.</li>
             <li>Use headphones and proper lighting for a better experience.</li>
+            <li>Our AI watches you so be gental to everyone otherwise your honoe score will reduce.</li>
             <li>Contribute positively — in code or conversation!</li>
           </ul>
         </section>

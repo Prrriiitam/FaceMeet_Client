@@ -20,8 +20,11 @@ export default function Navbar() {
   const NavLinks = () => (
     <>
       <a href="/"    className="nav-link">Home</a>
+      <a href="/blog"  className="nav-link">Blog</a>
+      <a href="/features"  className="nav-link">Features</a>
       <a href="/policy" className="nav-link">Policy</a>
       <a href="/about"  className="nav-link">About&nbsp;Us</a>
+      
 
       <span className="rounded-full bg-teal-600/20 px-2 py-0.5 text-xs font-semibold text-teal-300 mt-2 md:mt-0">
         🟢 Live&nbsp;{liveUsers}

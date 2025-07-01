@@ -11,6 +11,8 @@ import Room from "./screens/Room";
 import Login from "./components/Pages/Login";
 import Footer from "./components/Footer";
 import Community from "./components/Pages/Community";
+import Features from "./components/Pages/Features";
+import Blog from "./components/Pages/Blog";
 
 import RequireAuth from "./components/RequireAuth";
 
@@ -25,6 +27,8 @@ const  App= () => {
         <Route path="/about" element={<About />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/community" element={<Community />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/blog" element={<Blog />} />
 
         <Route
           path="/match" element={<RequireAuth>
