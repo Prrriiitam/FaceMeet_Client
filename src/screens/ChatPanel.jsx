@@ -28,10 +28,11 @@ const ChatPanel = ({ roomId, remoteName }) => {
    const [toastMsg, setToastMsg] = useState(null);
 
    useEffect(() => {
-    const handleAbuseDetected = ({ offenderName }) => {
+    const handleAbuseDetected = ({ offenderName, honor }) => {
       setAbuseAlert({
         id: Date.now(),
         offenderName,
+        honor: honor,
         detected: true
       });
       
@@ -40,10 +41,11 @@ const ChatPanel = ({ roomId, remoteName }) => {
         setAbuseAlert(null);
       }, 5000);
     };
-    const handleAbuseCleared = ({ offenderName }) => {
+    const handleAbuseCleared = ({ offenderName, honor}) => {
       setAbuseAlert({
         id: Date.now(),
         offenderName,
+        honor: honor,
         detected: false
       });
       
@@ -426,6 +428,7 @@ const ChatPanel = ({ roomId, remoteName }) => {
             offenderName={abuseAlert.offenderName}
             onClose={() => setAbuseAlert(null)}
             detected={abuseAlert.detected}
+            honor={abuseAlert.honor}
           />
         )}
     </AnimatePresence>

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export const AbuseNotification = ({ offenderName, onClose, detected }) => {
+export const AbuseNotification = ({ offenderName, onClose, honor, detected }) => {
   const isAbusive = detected;          // true → abuse confirmed | false → no abuse
 
   /* pick colours + text based on outcome */
@@ -9,7 +9,7 @@ export const AbuseNotification = ({ offenderName, onClose, detected }) => {
   const barColor = isAbusive ? "bg-white/80"   : "bg-white/80";
   const title    = isAbusive ? "Abuse Detected!" : "No Abuse Found";
   const body     = isAbusive
-    ? `${offenderName} used abusive language.\nHonor score -1`
+    ? `${offenderName} used abusive language.\nHonor score -1 and new honor score is ${honor}`
     : `${offenderName} did not violate our policies.\nPlease avoid false reports – repeated misuse may affect your honor score.`;
 
   return (

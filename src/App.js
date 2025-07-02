@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import Community from "./components/Pages/Community";
 import Features from "./components/Pages/Features";
 import Blog from "./components/Pages/Blog";
+import Issues from "./components/Issues";
 
 import RequireAuth from "./components/RequireAuth";
 
@@ -29,6 +30,7 @@ const  App= () => {
         <Route path="/community" element={<Community />} />
         <Route path="/features" element={<Features />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/issues" element={<Issues />} />
 
         <Route
           path="/match" element={<RequireAuth>
