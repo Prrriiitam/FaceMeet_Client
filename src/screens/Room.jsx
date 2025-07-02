@@ -837,6 +837,30 @@ const RoomPage = () => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+
+  /* Restore streams if we re‑enter the page while the peer connection is still alive */
+useEffect(() => {
+  if (!peer.peer) return;                       // connection already closed
+
+  // 1. attach listeners only once
+  attachPeerListeners(remoteSocketId || state?.peerId);
+
+  // 2. rebuild remote stream from existing receivers
+  if (!remoteStream) {
+    const remote = new MediaStream();
+    peer.peer.getReceivers().forEach(r => r.track && remote.addTrack(r.track));
+    remote.getTracks().length && setRemoteStream(remote);
+  }
+
+  // 3. rebuild myStream from senders (works if you were already publishing)
+  if (!myStream) {
+    const local = new MediaStream();
+    peer.peer.getSenders().forEach(s => s.track && local.addTrack(s.track));
+    local.getTracks().length && setMyStream(local);
+  }
+}, []);           //   ← run only once on remount
+
+
   /* ────────────────────────────────────────────────────────────── */
   /*  5. RENDER                                                    */
   /* ────────────────────────────────────────────────────────────── */

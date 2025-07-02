@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
 import { useStats } from "../../context/SocketProvider";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -19,11 +20,11 @@ export default function Navbar() {
 
   const NavLinks = () => (
     <>
-      <a href="/"    className="nav-link">Home</a>
-      <a href="/blog"  className="nav-link">Blog</a>
-      <a href="/features"  className="nav-link">Features</a>
-      <a href="/policy" className="nav-link">Policy</a>
-      <a href="/about"  className="nav-link">About&nbsp;Us</a>
+      <NavLink to="/"        className="nav-link">Home</NavLink>
+      <NavLink to="/blog"    className="nav-link">Blog</NavLink>
+      <NavLink to="/features"className="nav-link">Features</NavLink>
+      <NavLink to="/policy"  className="nav-link">Policy</NavLink>
+      <NavLink to="/about"   className="nav-link">About&nbsp;Us</NavLink>
       
 
       <span className="rounded-full bg-teal-600/20 px-2 py-0.5 text-xs font-semibold text-teal-300 mt-2 md:mt-0">
@@ -48,9 +49,9 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
 
           {/* Brand */}
-          <a className="text-3xl font-bold text-teal-800 dark:text-teal-300" href="#">
+          <Link to="/" className="text-3xl font-bold text-teal-800 dark:text-teal-300">
             FaceMeet
-          </a>
+          </Link>
 
           {/* Hamburger button (mobile) */}
           <button

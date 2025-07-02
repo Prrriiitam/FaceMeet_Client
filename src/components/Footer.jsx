@@ -1,5 +1,5 @@
 import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-10 px-4 w-full">
@@ -7,14 +7,14 @@ export default function Footer() {
 
         {/* Col 1 */}
         <div className="space-y-2 text-center sm:text-left">
-          <a href="/" className="hover:underline block">Home</a>
-          <a href="https://github.com/Prrriiitam/FaceMeet_Server" target="_blank" className="hover:underline block">Source Code</a>
+          <Link to="/" className="hover:underline block">Home</Link>
+          <Link to="https://github.com/Prrriiitam/FaceMeet_Server" target="_blank" className="hover:underline block">Source Code</Link>
         </div>
 
         {/* Col 2 */}
         <div className="space-y-2 text-center">
-          <a href="/community" className="hover:underline block">View Community</a>
-          <a href="/policy" className="hover:underline block">View Our Policy</a>
+          <Link to="/community" className="hover:underline block">View Community</Link>
+          <Link to="/policy" className="hover:underline block">View Our Policy</Link>
         </div>
 
         {/* Col 3 */}
@@ -22,9 +22,9 @@ export default function Footer() {
           <p className="font-semibold">Connect with the team</p>
           <p>Pritam Kumar Sarangi</p>
           <div className="flex justify-center sm:justify-start gap-4 text-xl">
-            <a href="https://www.linkedin.com/in/pritam-kumar-sarangi-7b952a232/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-            <a href="https://github.com/prrriiitam" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-            <a href="https://x.com/prrriiitam" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+            <Link to="https://www.linkedin.com/in/pritam-kumar-sarangi-7b952a232/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></Link>
+            <Link to="https://github.com/prrriiitam" target="_blank" rel="noopener noreferrer"><FaGithub /></Link>
+            <Link to="https://x.com/prrriiitam" target="_blank" rel="noopener noreferrer"><FaTwitter /></Link>
           </div>
         </div>
       </div>

@@ -37,11 +37,15 @@ const MatchScreen = () => {
 
   // Server paired me with a stranger
   useEffect(() => {
-    socket.on("match:paired", ({ roomId, peerId, peerEmail, peerName, peerAge, peerGender, initiator }) => {
-      setIsWaiting(false);
-      nav(`/room/${roomId}`, { state: { peerId, initiator, peerEmail, peerName, peerAge, peerGender } })});
-    return () => socket.off("match:paired");
-  }, [socket, nav]);
+  socket.on("match:paired", ({ roomId, peerId, peerEmail, peerName, peerAge, peerGender, initiator }) => {
+    setIsWaiting(false);
+    nav(`/room/${roomId}`, {
+      state: { peerId, initiator, peerEmail, peerName, peerAge, peerGender }
+    });
+  });
+  return () => socket.off("match:paired");
+}, [socket, nav]);
+
 
   return (
 <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#0B1120] to-black px-4">
