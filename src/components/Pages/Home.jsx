@@ -39,7 +39,14 @@ const features = [
     title: "AI‑Powered Abuse Reporting",
     desc: "Report any message – our on‑device Xenova model flags toxicity in real time, keeping conversations respectful.",
     grad: "from-rose-500 to-red-500",
-  }
+  },
+  {
+  icon: FiMessageCircle,
+  title: "Community Blog & Feedback",
+  desc: "Post suggestions, report bugs, and connect with the FaceMeet global community. Your voice shapes the platform.",
+  grad: "from-green-500 to-emerald-500",
+}
+
 ];
 
 function Home() {
