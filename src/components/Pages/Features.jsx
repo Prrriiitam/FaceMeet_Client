@@ -43,6 +43,12 @@ const primaryFeatures = [
     title: "AI-Powered Abuse Detection",
     desc: "All messages are automatically screened by our on-device Xenova AI to ensure a respectful, safe environment.",
   },
+    {
+  icon: FiMessageCircle,
+  title: "Community Blog & Feedback",
+  desc: "Post suggestions, report bugs, and connect with the FaceMeet global community. Your voice shapes the platform.",
+  
+}
 ];
 
 const extendedFeatures = [
@@ -106,7 +112,8 @@ const techAndAccessibility = [
     icon: FiClock,
     title: "99.9% Uptime Guarantee",
     desc: "Hosted on reliable infrastructure like Vercel and Render, ensuring FaceMeet is always available when you need it.",
-  },
+  }
+
 ];
 
 function Features() {
