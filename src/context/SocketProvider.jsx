@@ -71,6 +71,9 @@ export const SocketProvider = (props) => {
   const [liveUsers, setLiveUsers] = useState(0);
   const { user, logout } = useAuth();     // 👉 get current token
   const pollRef = useRef(null);                 // ← store interval id very few seconds only while the user is not authenticated.
+  // Ensure the polling runs only when the user is not authenticated.
+  // Stop the polling when the user logs in (i.e., becomes authenticated).
+  // We use useRef instead of useState to avoid unnecessary rerenders.
 
   useEffect(() => {
    fetch(`${BACKEND_ORIGIN}/api/live-users`)

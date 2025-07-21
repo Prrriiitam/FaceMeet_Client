@@ -7,8 +7,6 @@ import { useStats } from "../context/SocketProvider";
 
 const MatchScreen = () => {
   const { liveUsers} = useStats();
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [isWaiting, setIsWaiting] = useState(false);
   const [error, setError] = useState("");
   
@@ -28,12 +26,12 @@ const MatchScreen = () => {
     }
     setError("");
     setInfo({ age, gender, pref });                  // 💾 remember form
-    socket.emit("queue:join", { email, name, age, gender, pref });
+    socket.emit("queue:join", { age, gender, pref });
     setIsWaiting(true);
     
     
       
-  }, [email, name, age, gender, pref, socket]);
+  }, [ age, gender, pref, socket]);
 
   // Server paired me with a stranger
   useEffect(() => {

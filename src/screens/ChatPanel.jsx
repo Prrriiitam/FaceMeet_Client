@@ -8,6 +8,9 @@ import { AnimatePresence } from "framer-motion";
 const LONG_PRESS_MS = 500;
 
 const ChatPanel = ({ roomId, remoteName }) => {
+
+  const chatScrollRef = useRef(null);
+
   const socket = useSocket();
   const fileInputRef = useRef(null);
   const [replying,  setReplying]  = useState(null); 
@@ -89,8 +92,18 @@ const ChatPanel = ({ roomId, remoteName }) => {
 
   /* ---------------- Auto‑scroll ---------------- */
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  const container = chatScrollRef.current;
+  if (!container) return;
+
+  const threshold = 80; // px from bottom
+  const isNearBottom =
+    container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+
+  if (isNearBottom) {
+    container.scrollTop = container.scrollHeight;
+  }
   }, [messages]);
+
 
   // Close context menu on generic click / ESC key
    useEffect(() => {
@@ -201,7 +214,9 @@ const ChatPanel = ({ roomId, remoteName }) => {
         💡 Desktop: double-click a message to report · Mobile: long-press a message to report
       </p>
       {/* message list */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2 text-sm text-gray-100">
+      <div 
+      ref={chatScrollRef}
+      className="flex-1 overflow-y-auto p-3 space-y-2 text-sm text-gray-100">
         {messages.map((m) => (
           <div
             key={m.id}
