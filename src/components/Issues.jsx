@@ -340,7 +340,14 @@ export default function Issues() {
         {/* ISSUE LIST */}
         <div className="space-y-4">
           {loading ? (
-            <p className="text-center text-gray-400">Loading issues...</p>
+            <>
+            <p className="text-center text-lg font-medium text-gray-600">
+            🚀 Please be patient for <span className="text-blue-600 font-semibold">1–2 mins</span> while we restart the server.
+            </p>
+            <p className="text-center text-lg text-gray-400 mt-2">
+            Loading issues... (❁´◡`❁)
+            </p>
+            </>
           ) : error ? (
             <p className="text-center text-red-400">{error}</p>
           ) : issues.length === 0 ? (

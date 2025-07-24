@@ -8,17 +8,20 @@ export default function Footer() {
         {/* Col 1 */}
         <div className="space-y-2 text-center sm:text-left">
           <Link to="/" className="hover:underline block">Home</Link>
+          
           <Link to="https://github.com/Prrriiitam/FaceMeet_Server" target="_blank" className="hover:underline block">Source Code</Link>
+          <Link to="/features" className="hover:underline block">Checkout Features</Link>
         </div>
 
         {/* Col 2 */}
         <div className="space-y-2 text-center">
-          <Link to="/community" className="hover:underline block">View Community</Link>
+          <Link to="/issues" className="hover:underline block">Connect With Facemeet Gobal Community</Link>
+          <Link to="/community" className="hover:underline block">View Community Guidelines</Link>
           <Link to="/policy" className="hover:underline block">View Our Policy</Link>
         </div>
 
         {/* Col 3 */}
-        <div className="space-y-4 text-center sm:text-left md:pl-20">
+        <div className="space-y-4  text-center sm:text-left md:pl-20">
           <p className="font-semibold">Connect with the team</p>
           <p>Pritam Kumar Sarangi</p>
           <div className="flex justify-center sm:justify-start gap-4 text-xl">
